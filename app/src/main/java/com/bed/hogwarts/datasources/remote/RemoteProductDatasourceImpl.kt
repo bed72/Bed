@@ -10,6 +10,7 @@ import com.bed.hogwarts.framework.network.clients.HttpClient
 import com.bed.core.domain.models.MessageModel
 import com.bed.core.domain.models.ProductModel
 import com.bed.core.domain.alias.GetProductDomainType
+
 import com.bed.core.data.datasources.remote.RemoteProductDatasource
 
 import com.bed.hogwarts.framework.network.paths.ApiPath

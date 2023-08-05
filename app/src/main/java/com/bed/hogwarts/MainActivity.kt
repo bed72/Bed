@@ -21,12 +21,13 @@ class MainActivity : ComponentActivity() {
     private var keepSplashOpened = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        installSplashScreen().setKeepOnScreenCondition {
-            keepSplashOpened
+        installSplashScreen().apply {
+            setKeepOnScreenCondition { keepSplashOpened }
         }
 
-        super.onCreate(savedInstanceState)
+
         setContent {
             HogwartsTheme(isDynamicColor = false) {
                 val navigationController = rememberNavController()
@@ -40,4 +41,5 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }

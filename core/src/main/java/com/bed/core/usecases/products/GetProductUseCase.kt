@@ -10,7 +10,6 @@ import com.bed.core.domain.alias.GetProductDomainType
 import com.bed.core.data.repositories.ProductRepository
 import com.bed.core.usecases.corroutine.CoroutinesUseCase
 
-
 interface GetProductUseCase {
     operator fun invoke(parameters: Unit = Unit): Flow<GetProductDomainType>
 }

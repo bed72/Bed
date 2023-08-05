@@ -13,7 +13,7 @@ dependencies {
     api("io.arrow-kt:arrow-core:1.2.0")
 
     api("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 
 
     testImplementation(project(":test"))

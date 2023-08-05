@@ -23,6 +23,6 @@ interface UseCaseModule {
 
     @Binds
     @Singleton
-    fun bindProductUseCase(useCase: GetProductUseCaseImp): GetProductUseCase
+    fun bindGetProductUseCase(useCase: GetProductUseCaseImp): GetProductUseCase
 
 }

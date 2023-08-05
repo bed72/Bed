@@ -8,6 +8,7 @@ plugins {
     id("kotlinx-serialization")
     id("com.android.application")
     id("dagger.hilt.android.plugin")
+    id("io.gitlab.arturbosch.detekt")
     id("androidx.navigation.safeargs")
     id("org.jetbrains.kotlin.android")
 }
@@ -114,26 +115,63 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion")
 
-    val hiltVersion = "2.46.1"
+    val hiltVersion = "2.47"
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
-    val ktorVersion = "2.3.2"
+    val ktorVersion = "2.3.3"
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
     implementation("io.ktor:ktor-client-android:$ktorVersion")
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
-    // Test
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.1")
+
     implementation(project(":test"))
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
 
-    // Debug
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.11")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
+
     debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
     debugImplementation("androidx.compose.ui:ui-test-manifest:$composeVersion")
+}
+
+detekt {
+    toolVersion = "1.23.1"
+
+    parallel = true
+
+    debug = false
+    allRules = false
+    ignoreFailures = false
+    buildUponDefaultConfig = false
+    disableDefaultRuleSets = false
+
+    basePath = projectDir.absolutePath
+    ignoredBuildTypes = listOf("release")
+    config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
+    source.setFrom(
+        "$rootDir/app/src/main/java",
+        "$rootDir/app/src/test/java",
+        "$rootDir/app/src/androidTest/java",
+        "$rootDir/core/src/main/java",
+        "$rootDir/core/src/test/java",
+        "$rootDir/test/src/main/java"
+    )
+}
+
+afterEvaluate {
+    tasks.named("preBuild") {
+        dependsOn("detekt")
+    }
+}
+
+tasks.detekt.configure {
+    reports {
+        sarif.required.set(true)
+    }
 }

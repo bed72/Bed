@@ -16,6 +16,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.DefaultLifecycleObserver
+import com.bed.core.domain.models.MessageModel
+
+import com.bed.core.domain.models.ProductModel
 
 import com.bed.core.usecases.products.GetProductUseCase
 
@@ -24,8 +27,8 @@ class HomeViewModel @Inject constructor(
     private val useCase: GetProductUseCase
 ) : DefaultLifecycleObserver, ViewModel() {
 
-
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
+
     val uiState: StateFlow<UiState> get() = _uiState.stateIn(
         viewModelScope,
         SharingStarted.Eagerly,
@@ -40,8 +43,8 @@ class HomeViewModel @Inject constructor(
                 .onStart { onLoading() }
                 .collect { value ->
                     value.fold(
-                        { failure -> onFailure(failure.error) },
-                        { success -> onSuccess(success[0].name) }
+                        { failure -> onFailure(failure) },
+                        { success -> onSuccess(success) }
                     )
                 }
         }
@@ -51,17 +54,17 @@ class HomeViewModel @Inject constructor(
         _uiState.update { UiState.Loading }
     }
 
-    private fun onSuccess(success: String) {
+    private fun onSuccess(success: List<ProductModel>) {
         _uiState.update { UiState.Success(success) }
     }
 
-    private fun onFailure(failure: String) {
-        _uiState.update { UiState.Failure(failure) }
+    private fun onFailure(failure: MessageModel) {
+        _uiState.update { UiState.Failure(failure.message) }
     }
 
     sealed class UiState {
         data object Loading : UiState()
-        data class Success(val success: String) : UiState()
+        data class Success(val success: List<ProductModel>) : UiState()
         data class Failure(val failure: String) : UiState()
     }
 

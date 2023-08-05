@@ -5,14 +5,14 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
-import com.bed.core.data.datasources.remote.ProductRemoteDatasource
-import com.bed.hogwarts.data.datasources.remote.ProductRemoteDatasourceImpl
+import com.bed.core.data.datasources.remote.RemoteProductDatasource
+import com.bed.hogwarts.datasources.remote.RemoteProductDatasourceImpl
 
 @Module
 @InstallIn(SingletonComponent::class)
 interface DatasourceModule {
 
     @Binds
-    fun bindProductDatasource(datasource: ProductRemoteDatasourceImpl): ProductRemoteDatasource
+    fun bindProductDatasource(datasource: RemoteProductDatasourceImpl): RemoteProductDatasource
 
 }

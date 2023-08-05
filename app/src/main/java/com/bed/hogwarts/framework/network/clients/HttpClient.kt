@@ -9,8 +9,9 @@ import arrow.core.Either
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.ExperimentalSerializationApi
 
-import io.ktor.http.HttpHeaders
 import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
 
 import io.ktor.serialization.kotlinx.json.json
 
@@ -19,8 +20,9 @@ import io.ktor.client.request.header
 import io.ktor.client.request.headers
 import io.ktor.client.request.request
 import io.ktor.client.HttpClientConfig
-import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.engine.android.Android
+import io.ktor.client.statement.HttpResponse
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.logging.LogLevel
@@ -31,8 +33,6 @@ import io.ktor.client.engine.android.AndroidEngineConfig
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 
 import com.bed.hogwarts.BuildConfig
-import io.ktor.client.statement.HttpResponse
-
 
 interface HttpClient {
     val ktor: KtorClient
@@ -112,7 +112,10 @@ suspend inline fun <reified F : Any, reified S : Any> KtorClient.request(
 
     close()
 
-    return if (response.status.value in (200..299) ) success(response) else failure(response)
+    return when (response.status) {
+        HttpStatusCode.OK, HttpStatusCode.Created -> success(response)
+        else -> failure(response)
+    }
 }
 
 suspend inline fun <reified F> failure(response: HttpResponse) = response.body<F>().left()

@@ -16,6 +16,8 @@ fun NavGraphBuilder.homeRoute(
             onDataLoaded()
         }
 
-        HomeScreen()
+        HomeScreen {
+            it.updateState()
+        }
     }
 }

@@ -18,12 +18,12 @@ val keys = Properties().apply {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
     namespace = "com.bed.hogwarts"
 
     defaultConfig {
         minSdk = 27
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
         applicationId = "com.bed.hogwarts"
@@ -102,6 +102,11 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.1.1")
     implementation("androidx.navigation:navigation-compose:2.6.0")
 
+    val cameraxVersion = "1.2.3"
+    implementation("androidx.camera:camera-view:1.3.0-beta02")
+    implementation("androidx.camera:camera-camera2:$cameraxVersion")
+    implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
+    implementation("androidx.camera:camera-extensions:$cameraxVersion")
 
     val composeVersion = "1.4.3"
     implementation("androidx.compose.ui:ui:$composeVersion")
@@ -110,6 +115,7 @@ dependencies {
     implementation("androidx.compose.animation:animation:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
     implementation("androidx.compose.foundation:foundation:$composeVersion")
+    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
 
     val lifecycleVersion = "2.6.1"
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
@@ -127,9 +133,12 @@ dependencies {
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
+    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("com.google.accompanist:accompanist-permissions:0.30.1")
+
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.1")
 
-    implementation(project(":test"))
+    testImplementation(project(":test"))
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")

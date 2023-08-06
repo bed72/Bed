@@ -33,6 +33,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bed.core.domain.models.ProductModel
 
+
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),

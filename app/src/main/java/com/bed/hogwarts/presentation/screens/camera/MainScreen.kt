@@ -1,0 +1,41 @@
+package com.bed.hogwarts.presentation.screens.camera
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+import com.bed.hogwarts.presentation.screens.NoPermissionScreen
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionState
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
+
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+fun MainScreen() {
+
+    val cameraPermissionState: PermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
+
+    MainContent(
+        hasPermission = cameraPermissionState.status.isGranted,
+        onRequestPermission = cameraPermissionState::launchPermissionRequest
+    )
+}
+
+@Composable
+private fun MainContent(
+    hasPermission: Boolean,
+    onRequestPermission: () -> Unit
+) {
+
+    if (hasPermission) CameraScreen()
+    else NoPermissionScreen(onRequestPermission)
+
+}
+
+@Preview
+@Composable
+private fun PreviewMainContent() {
+    MainContent(
+        hasPermission = true,
+        onRequestPermission = {}
+    )
+}

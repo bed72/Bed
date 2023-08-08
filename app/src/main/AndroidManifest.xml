@@ -50,6 +50,18 @@
 
         </activity>
 
+        <provider
+            android:exported="false"
+            android:grantUriPermissions="true"
+            android:authorities="${applicationId}.provider"
+            android:name="androidx.core.content.FileProvider" >
+
+            <meta-data
+                android:resource="@xml/path_provider"
+                android:name="android.support.FILE_PROVIDER_PATHS" />
+
+        </provider>
+
     </application>
 
 </manifest>

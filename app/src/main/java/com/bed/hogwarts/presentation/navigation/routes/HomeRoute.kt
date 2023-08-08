@@ -6,8 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.compose.runtime.LaunchedEffect
 
 import com.bed.hogwarts.presentation.screens.Screens
-import com.bed.hogwarts.presentation.screens.camera.MainScreen
-import com.bed.hogwarts.presentation.screens.home.HomeScreen
+import com.bed.hogwarts.presentation.screens.camera.CameraScreen
 import com.bed.hogwarts.presentation.screens.picker.PickerScreen
 
 fun NavGraphBuilder.homeRoute(
@@ -18,8 +17,7 @@ fun NavGraphBuilder.homeRoute(
             onDataLoaded()
         }
 
-        PickerScreen()
-//        MainScreen()
+        CameraScreen()
 //        HomeScreen {
 //            it.updateState()
 //        }

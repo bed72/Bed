@@ -1,5 +1,6 @@
 package com.bed.hogwarts.presentation.screens.home
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.hilt.navigation.compose.hiltViewModel
 
@@ -19,9 +20,19 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
@@ -38,20 +49,40 @@ import com.bed.core.domain.models.OffersModel
 
 @Composable
 fun HomeScreen(
+    modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
-    disposable: () -> Unit = {}
+    disposable: () -> Unit = {},
+    onClick: () -> Unit
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val (snackBarVisible, setSnackBarVisible) = remember { mutableStateOf(false) }
 
     Lifecycle(viewModel, LocalLifecycleOwner.current, disposable)
 
-    when (uiState) {
-        HomeViewModel.UiState.Loading -> LoadingComponent()
-        is HomeViewModel.UiState.Success ->
-            ListComponent((uiState as HomeViewModel.UiState.Success).success)
-        is HomeViewModel.UiState.Failure ->
-            TextComponent(stringResource(id = (uiState as HomeViewModel.UiState.Failure).failure))
+    if (snackBarVisible) FailureComponent((state as HomeViewModel.State.Failure).failure)
+
+    Scaffold(
+        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButton = { FloatingActionComponent(onClick) },
+    ) { padding ->
+        Surface(modifier = modifier.padding(padding)) {
+            when (state) {
+                HomeViewModel.State.Loading -> LoadingComponent()
+                is HomeViewModel.State.Success -> ListComponent((state as HomeViewModel.State.Success).success)
+                is HomeViewModel.State.Failure -> setSnackBarVisible(!snackBarVisible)
+            }
+        }
     }
+}
+
+@Composable
+private fun FloatingActionComponent(onClick: () -> Unit) {
+    ExtendedFloatingActionButton(
+        onClick = { onClick() },
+        text = { Text("Add Offer") },
+        icon = { Icon(Icons.Filled.Add,"") },
+        elevation = FloatingActionButtonDefaults.elevation(8.dp)
+    )
 }
 
 @Composable
@@ -62,6 +93,15 @@ private fun LoadingComponent(modifier: Modifier = Modifier) {
             .wrapContentWidth()
             .wrapContentHeight(),
     )
+}
+
+@Composable
+private fun FailureComponent(@StringRes message: Int, modifier: Modifier = Modifier) {
+    Snackbar(
+        modifier = modifier.padding(8.dp)
+    ) {
+        TextComponent(stringResource(id = message))
+    }
 }
 
 @Composable

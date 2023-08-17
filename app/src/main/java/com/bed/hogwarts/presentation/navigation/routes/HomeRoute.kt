@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.compose.runtime.LaunchedEffect
 
 import com.bed.hogwarts.presentation.screens.Screens
-import com.bed.hogwarts.presentation.screens.home.HomeScreen
+import com.bed.hogwarts.presentation.screens.sale.SaleBottomSheetScreen
 
 fun NavGraphBuilder.homeRoute(
     onDataLoaded: () -> Unit
@@ -15,9 +15,9 @@ fun NavGraphBuilder.homeRoute(
         LaunchedEffect(key1 = null) {
             onDataLoaded()
         }
-
-        HomeScreen {
-            it.updateState()
-        }
+        SaleBottomSheetScreen()
+//        HomeScreen {
+//            it.updateState()
+//        }
     }
 }

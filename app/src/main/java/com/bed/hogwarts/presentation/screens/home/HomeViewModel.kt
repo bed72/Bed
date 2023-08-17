@@ -27,12 +27,12 @@ class HomeViewModel @Inject constructor(
     private val useCase: GetOffersUseCase
 ) : DefaultLifecycleObserver, ViewModel() {
 
-    private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
+    private val _state = MutableStateFlow<State>(State.Loading)
 
-    val uiState: StateFlow<UiState> get() = _uiState.stateIn(
+    val state: StateFlow<State> get() = _state.stateIn(
         viewModelScope,
         SharingStarted.Eagerly,
-        initialValue = _uiState.value
+        initialValue = _state.value
     )
 
     override fun onCreate(owner: LifecycleOwner) {
@@ -51,21 +51,21 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun onLoading() {
-        _uiState.update { UiState.Loading }
+        _state.update { State.Loading }
     }
 
     private fun onSuccess(success: List<OffersModel>) {
-        _uiState.update { UiState.Success(success) }
+        _state.update { State.Success(success) }
     }
 
     private fun onFailure(failure: MessageModel) {
-        _uiState.update { UiState.Failure(failure.message) }
+        _state.update { State.Failure(failure.message) }
     }
 
-    sealed class UiState {
-        data object Loading : UiState()
-        data class Success(val success: List<OffersModel>) : UiState()
-        data class Failure(val failure: Int) : UiState()
+    sealed class State {
+        data object Loading : State()
+        data class Success(val success: List<OffersModel>) : State()
+        data class Failure(val failure: Int) : State()
     }
 
 }

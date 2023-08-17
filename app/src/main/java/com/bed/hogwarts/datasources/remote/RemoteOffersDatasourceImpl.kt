@@ -31,7 +31,7 @@ class RemoteOffersDatasourceImpl @Inject constructor(
             .addOnSuccessListener { collections ->
                 continuation.resume(toSuccess(collections.toObjects()).right())
             }
-            .addOnCanceledListener {
+            .addOnFailureListener {
                 continuation.resume(
                     toFailure(MessageResponse(StringResource.GET_OFFERS_FAILURE.value)).left()
                 )

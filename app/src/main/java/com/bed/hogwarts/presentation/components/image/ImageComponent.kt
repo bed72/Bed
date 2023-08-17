@@ -1,4 +1,4 @@
-package com.bed.hogwarts.presentation.components
+package com.bed.hogwarts.presentation.components.image
 
 import android.net.Uri
 import androidx.compose.foundation.Image

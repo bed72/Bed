@@ -1,8 +1,3 @@
-import java.util.Properties
-
-import java.io.File
-import java.io.FileInputStream
-
 plugins {
     id("kotlin-kapt")
     id("kotlinx-serialization")
@@ -11,10 +6,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt")
     id("androidx.navigation.safeargs")
     id("org.jetbrains.kotlin.android")
-}
-
-val keys = Properties().apply {
-    load(FileInputStream(File(rootProject.rootDir, "secrets.properties")))
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -22,7 +14,7 @@ android {
     namespace = "com.bed.hogwarts"
 
     defaultConfig {
-        minSdk = 27
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -33,9 +25,6 @@ android {
         }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField("String", "BASE_URL", keys.getProperty("BASE_URL"))
-        buildConfigField("String", "API_KEY", keys.getProperty("API_KEY"))
     }
 
     buildFeatures {
@@ -100,7 +89,7 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.activity:activity-compose:1.7.2")
     implementation("androidx.compose.material3:material3:1.1.1")
-    implementation("androidx.navigation:navigation-compose:2.6.0")
+    implementation("androidx.navigation:navigation-compose:2.7.0")
 
     val cameraxVersion = "1.2.3"
     implementation("androidx.camera:camera-view:1.3.0-beta02")
@@ -108,7 +97,7 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
     implementation("androidx.camera:camera-extensions:$cameraxVersion")
 
-    val composeVersion = "1.4.3"
+    val composeVersion = "1.5.0"
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.ui:ui-graphics:$composeVersion")
     implementation("androidx.compose.runtime:runtime:$composeVersion")
@@ -126,15 +115,13 @@ dependencies {
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
-    val ktorVersion = "2.3.3"
-    implementation("io.ktor:ktor-client-core:$ktorVersion")
-    implementation("io.ktor:ktor-client-logging:$ktorVersion")
-    implementation("io.ktor:ktor-client-android:$ktorVersion")
-    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
 
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("com.google.accompanist:accompanist-permissions:0.30.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.1")
 

@@ -1,4 +1,4 @@
-package com.bed.hogwarts.presentation.screens.camera
+package com.bed.hogwarts.presentation.components.camera
 
 import android.Manifest
 import android.content.Context
@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.bed.hogwarts.BuildConfig
-import com.bed.hogwarts.presentation.components.ImageComponent
+import com.bed.hogwarts.presentation.components.image.ImageComponent
 
 import java.io.File
 import java.text.SimpleDateFormat
@@ -35,7 +35,7 @@ import java.util.Date
 import java.util.Locale
 
 @Composable
-fun CameraScreen(modifier: Modifier = Modifier) {
+fun CameraComponent(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val file = createImageFile(context)
     val uri = FileProvider.getUriForFile(

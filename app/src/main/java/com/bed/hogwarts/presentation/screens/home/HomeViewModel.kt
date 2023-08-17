@@ -18,13 +18,13 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.DefaultLifecycleObserver
 import com.bed.core.domain.models.MessageModel
 
-import com.bed.core.domain.models.ProductModel
+import com.bed.core.domain.models.OffersModel
 
-import com.bed.core.usecases.products.GetProductUseCase
+import com.bed.core.usecases.sales.GetOffersUseCase
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val useCase: GetProductUseCase
+    private val useCase: GetOffersUseCase
 ) : DefaultLifecycleObserver, ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
@@ -54,7 +54,7 @@ class HomeViewModel @Inject constructor(
         _uiState.update { UiState.Loading }
     }
 
-    private fun onSuccess(success: List<ProductModel>) {
+    private fun onSuccess(success: List<OffersModel>) {
         _uiState.update { UiState.Success(success) }
     }
 
@@ -64,7 +64,7 @@ class HomeViewModel @Inject constructor(
 
     sealed class UiState {
         data object Loading : UiState()
-        data class Success(val success: List<ProductModel>) : UiState()
+        data class Success(val success: List<OffersModel>) : UiState()
         data class Failure(val failure: String) : UiState()
     }
 

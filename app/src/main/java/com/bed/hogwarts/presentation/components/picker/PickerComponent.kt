@@ -1,4 +1,4 @@
-package com.bed.hogwarts.presentation.screens.picker
+package com.bed.hogwarts.presentation.components.picker
 
 import android.net.Uri
 import androidx.activity.compose.ManagedActivityResultLauncher
@@ -25,10 +25,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 import androidx.compose.ui.unit.dp
-import com.bed.hogwarts.presentation.components.ImageComponent
+import com.bed.hogwarts.presentation.components.image.ImageComponent
 
 @Composable
-fun PickerScreen(modifier: Modifier = Modifier) {
+fun PickerComponent(modifier: Modifier = Modifier) {
     var uris by remember { mutableStateOf<List<Uri>>(emptyList()) }
 
     val pickerLauncher = rememberLauncherForActivityResult(

@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.bed.core.domain.models.ProductModel
+import com.bed.core.domain.models.OffersModel
 
 
 @Composable
@@ -54,7 +54,7 @@ fun HomeScreen(
 
 @Composable
 private fun ListProductsComponent(
-    values: List<ProductModel>,
+    values: List<OffersModel>,
     modifier: Modifier = Modifier
 ) {
     LazyColumn {
@@ -66,7 +66,7 @@ private fun ListProductsComponent(
 
 @Composable
 private fun CardComponent(
-    value: ProductModel,
+    value: OffersModel,
     modifier: Modifier = Modifier
 ) {
     Surface(

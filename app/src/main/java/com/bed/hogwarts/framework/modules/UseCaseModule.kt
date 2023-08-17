@@ -10,8 +10,8 @@ import dagger.hilt.components.SingletonComponent
 import com.bed.core.usecases.corroutine.CoroutinesUseCase
 import com.bed.core.usecases.corroutine.CoroutinesUseCaseImpl
 
-import com.bed.core.usecases.products.GetProductUseCase
-import com.bed.core.usecases.products.GetProductUseCaseImp
+import com.bed.core.usecases.sales.GetOffersUseCase
+import com.bed.core.usecases.sales.GetOffersUseCaseImp
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -23,6 +23,6 @@ interface UseCaseModule {
 
     @Binds
     @Singleton
-    fun bindGetProductUseCase(useCase: GetProductUseCaseImp): GetProductUseCase
+    fun bindGetProductUseCase(useCase: GetOffersUseCaseImp): GetOffersUseCase
 
 }

@@ -16,9 +16,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.DefaultLifecycleObserver
-import com.bed.core.domain.models.MessageModel
 
 import com.bed.core.domain.models.OffersModel
+import com.bed.core.domain.models.MessageModel
 
 import com.bed.core.usecases.sales.GetOffersUseCase
 
@@ -65,7 +65,7 @@ class HomeViewModel @Inject constructor(
     sealed class UiState {
         data object Loading : UiState()
         data class Success(val success: List<OffersModel>) : UiState()
-        data class Failure(val failure: String) : UiState()
+        data class Failure(val failure: Int) : UiState()
     }
 
 }

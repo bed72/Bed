@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 
@@ -27,12 +28,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.bed.core.domain.models.OffersModel
 
+import com.bed.core.domain.models.OffersModel
 
 @Composable
 fun HomeScreen(
@@ -44,16 +46,26 @@ fun HomeScreen(
     Lifecycle(viewModel, LocalLifecycleOwner.current, disposable)
 
     when (uiState) {
-        HomeViewModel.UiState.Loading -> TextComponent("Loading...")
+        HomeViewModel.UiState.Loading -> LoadingComponent()
         is HomeViewModel.UiState.Success ->
-            ListProductsComponent((uiState as HomeViewModel.UiState.Success).success)
+            ListComponent((uiState as HomeViewModel.UiState.Success).success)
         is HomeViewModel.UiState.Failure ->
-            TextComponent((uiState as HomeViewModel.UiState.Failure).failure)
+            TextComponent(stringResource(id = (uiState as HomeViewModel.UiState.Failure).failure))
     }
 }
 
 @Composable
-private fun ListProductsComponent(
+private fun LoadingComponent(modifier: Modifier = Modifier) {
+    CircularProgressIndicator(
+        modifier = modifier
+            .fillMaxSize()
+            .wrapContentWidth()
+            .wrapContentHeight(),
+    )
+}
+
+@Composable
+private fun ListComponent(
     values: List<OffersModel>,
     modifier: Modifier = Modifier
 ) {
@@ -73,7 +85,9 @@ private fun CardComponent(
         shadowElevation = 6.dp,
         shape = RoundedCornerShape(10.dp),
         color = MaterialTheme.colorScheme.background,
-        modifier = modifier.height(126.dp).padding(4.dp)
+        modifier = modifier
+            .height(126.dp)
+            .padding(4.dp)
     ) {
         Column(
             modifier = modifier.fillMaxSize(),
@@ -93,7 +107,6 @@ private fun TextComponent(
 ) {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = modifier.fillMaxSize(),
     ) {
         Text(
             text = value,
@@ -104,7 +117,6 @@ private fun TextComponent(
                 .wrapContentHeight()
         )
     }
-
 }
 
 @Composable

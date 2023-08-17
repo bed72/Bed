@@ -11,6 +11,9 @@ import com.bed.core.domain.models.OffersModel
 
 @Serializable
 data class OffersResponse(
+    @SerialName("id")
+    val id: String = "",
+
     @SerialName("name")
     val name: String = "",
 
@@ -32,7 +35,7 @@ data class OffersResponse(
 )
 
 fun OffersResponse.toModel() = OffersModel(
-    id = "id",
+    id = id,
     name = name,
     price = price,
     description = description,

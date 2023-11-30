@@ -71,7 +71,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
 
     packaging {
@@ -85,20 +85,20 @@ dependencies {
 
     implementation(project(":core"))
 
-    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("androidx.activity:activity-compose:1.7.2")
-    implementation("androidx.compose.material:material:1.5.0")
-    implementation("androidx.compose.material3:material3:1.1.1")
-    implementation("androidx.navigation:navigation-compose:2.7.0")
+    implementation("androidx.activity:activity-compose:1.8.1")
+    implementation("androidx.compose.material:material:1.5.4")
+    implementation("androidx.compose.material3:material3:1.1.2")
+    implementation("androidx.navigation:navigation-compose:2.7.5")
 
-    val cameraxVersion = "1.2.3"
-    implementation("androidx.camera:camera-view:1.3.0-beta02")
+    val cameraxVersion = "1.3.0"
+    implementation("androidx.camera:camera-view:1.4.0-alpha02")
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
     implementation("androidx.camera:camera-extensions:$cameraxVersion")
 
-    val composeVersion = "1.5.0"
+    val composeVersion = "1.5.4"
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.ui:ui-graphics:$composeVersion")
     implementation("androidx.compose.runtime:runtime:$composeVersion")
@@ -107,24 +107,24 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
 
-    val lifecycleVersion = "2.6.1"
+    val lifecycleVersion = "2.6.2"
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion")
 
-    val hiltVersion = "2.47"
+    val hiltVersion = "2.48.1"
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
     implementation("com.google.dagger:hilt-android:$hiltVersion")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
-    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
 
-    implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation("com.google.accompanist:accompanist-permissions:0.30.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation("com.google.accompanist:accompanist-permissions:0.32.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1")
 
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.1")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.4")
 
     testImplementation(project(":test"))
 
@@ -138,7 +138,7 @@ dependencies {
 }
 
 detekt {
-    toolVersion = "1.23.1"
+    toolVersion = "1.23.4"
 
     parallel = true
 
